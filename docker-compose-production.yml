@@ -23,6 +23,9 @@ services:
 
   php-fpm:
     image: ghcr.io/audetv/cabinet-php-fpm:main-3
+    deploy:
+      placement:
+        constraints: [ node.role == manager ]
 
 networks:
   traefik-public:
