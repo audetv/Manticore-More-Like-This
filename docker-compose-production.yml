@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   cabinet:
-    image: ghcr.io/audetv/cabinet-frontend:main-2
+    image: ghcr.io/audetv/cabinet-frontend:main-3
     networks:
       - traefik-public
     deploy:
@@ -20,16 +20,9 @@ services:
         - traefik.http.routers.cabinet.entryPoints=https
         - traefik.http.routers.cabinet.tls=true
         - traefik.http.routers.cabinet.tls.certResolver=letsEncrypt
-      mode: replicated
-      replicas: 2
-      update_config:
-        parallelism: 1
-        delay: 15s
 
   php-fpm:
-    image: ghcr.io/audetv/cabinet-php-fpm:main-2
-    volumes:
-      - ./app:/app
+    image: ghcr.io/audetv/cabinet-php-fpm:main-3
 
 networks:
   traefik-public:
