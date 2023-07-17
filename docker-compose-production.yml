@@ -25,6 +25,7 @@ services:
   php-fpm:
     image: ghcr.io/audetv/cabinet-php-fpm:main-3
     networks:
+      - traefik-public
       - cabinet-net
     deploy:
       placement:
