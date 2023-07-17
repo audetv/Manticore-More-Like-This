@@ -5,6 +5,7 @@ services:
     image: ghcr.io/audetv/cabinet-frontend:main-3
     networks:
       - traefik-public
+      - cabinet-net
     deploy:
       placement:
         constraints: [ node.role == manager ]
@@ -23,6 +24,8 @@ services:
 
   php-fpm:
     image: ghcr.io/audetv/cabinet-php-fpm:main-3
+    networks:
+      - cabinet-net
     deploy:
       placement:
         constraints: [ node.role == manager ]
@@ -30,3 +33,4 @@ services:
 networks:
   traefik-public:
     external: true
+  cabinet-net:
