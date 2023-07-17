@@ -7,7 +7,6 @@ services:
       dockerfile: nginx/Dockerfile
     networks:
       - traefik-public
-      - cabinet-net
     deploy:
       placement:
         constraints: [ node.role == manager ]
@@ -38,5 +37,4 @@ services:
 
 networks:
   traefik-public:
-    name: traefik-public
     external: true
