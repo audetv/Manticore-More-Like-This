@@ -4,12 +4,12 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
-          <label>Title to match </label>
+          <label>Наименование должно соответствовать </label>
           <textarea name="query_title" id="query_title" autocomplete="off" value="" class="form-control h-25"
                     rows="1"><?= isset($_POST['query_title']) ? $_POST['query_title'] : '' ?></textarea>
         </div>
         <div class="form-group">
-          <label>Content to match </label>
+          <label>Текс параграфа должен соответствовать </label>
           <textarea name="query_content" id="query_content" autocomplete="off" value="" class="form-control h-50"
                     rows="5"><?= isset($_POST['query_content']) ? $_POST['query_content'] : '' ?></textarea>
         </div>
@@ -19,36 +19,39 @@
             <h5 class="mb-0">
               <button class="btn btn-small btn-info mr-sm-2" type="button" data-toggle="collapse"
                       data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Settings
+                Настройки
               </button>
             </h5>
           </div>
           <div class="collapse" id="collapseExample">
             <div class="card-body">
               <div class="form-group">
-                <label for "max_query_terms">Max query terms (no more than 256) </label><input type="text"
-                                                                                               name="max_query_terms"
-                                                                                               value="<?= isset($_POST['max_query_terms']) ? $_POST['max_query_terms'] : 256 ?>"
-                                                                                               id="max_query_terms"
-                                                                                               class="form-control">
+                <label for "max_query_terms">Max query terms (no more than 256) </label>
+                <input type="text"
+                       name="max_query_terms"
+                       value="<?= isset($_POST['max_query_terms']) ? $_POST['max_query_terms'] : 256 ?>"
+                       id="max_query_terms"
+                       class="form-control">
               </div>
 
               <div class="form-group">
                 <div class="form-check">
                   <input type="checkbox" name="stopwords_enabled"
                          value="1" <?= isset($_POST['stopwords_enabled']) ? 'checked="checked"' : (!isset($_POST['send']) ? 'checked="checked"' : '') ?>><label>Enable
-                    stopwords (EN)</label>
+                    stopwords (RU)</label>
                 </div>
               </div>
               <div class="form-group">
-                <label>Minimum words to match(as float between 0.1 and 1.0)</label><input type="text"
-                                                                                          name="minimum_should_match"
-                                                                                          value="<?= isset($_POST['minimum_should_match']) ? $_POST['minimum_should_match'] : '0.2' ?>"
-                                                                                          class="form-control">
+                <label>Minimum words to match(as float between 0.1 and 1.0)</label>
+                <input type="text"
+                       name="minimum_should_match"
+                       value="<?= isset($_POST['minimum_should_match']) ? $_POST['minimum_should_match'] : '0.2' ?>"
+                       class="form-control">
               </div>
               <div class="form-group">
-                <label>Cut-off factor - percent of best match weight</label><input type="text" name="cutoffgrey"
-                                                                                   value="<?= isset($_POST['cutoffgrey']) ? $_POST['cutoffgrey'] : '0.5' ?>"
+                <label>Cut-off factor - percent of best match weight</label>
+                <input type="text" name="cutoffgrey"
+                       value="<?= isset($_POST['cutoffgrey']) ? $_POST['cutoffgrey'] : '0.5' ?>"
                                                                                    class="form-control">
               </div>
 
@@ -120,8 +123,8 @@
         <br>
         <div class="form-group">
           <input type="submit" class="btn btn-primary mr-sm-2"
-                 id="send" name="send" value="Search">
-          <input type="reset" class="btn btn-default mr-sm-2" name="reset" value="Reset">
+                 id="send" name="send" value="Поиск">
+          <input type="reset" class="btn btn-default mr-sm-2" name="reset" value="Сбросить">
         </div>
       </div>
     </div>
@@ -130,20 +133,21 @@
       <div class="col-sm-12">
           <?php if (isset($total_found)): ?>
             <p class="lead">
-              Total found:<?= $total_found ?>
+              Всего найдено:<?= $total_found ?>
             </p>
           <?php else: ?>
 
-            <p class="lead">Nothing found!</p>
+            <p class="lead">Ничего не найдено!</p>
           <?php endif; ?>
           <?= isset($sphinxql) ? '<pre>' . htmlspecialchars($sphinxql) . '</pre>' : '' ?>
       </div>
 
     </div>
     <div class="row">
-        <?php if (count($rows) > 0): ?>
-          <div class="col-sm-12">
-              <?php /*include 'paginator.php';*/ ?>
+        <?php if (count($rows) != 0): ?>
+          <div class="col-sm-12"><?php var_dump('there1'); ?>
+
+              <?php include 'paginator.php'; ?>
           </div>
         <?php endif; ?>
     </div>
@@ -163,7 +167,7 @@
             <h3>
                 <?php /** @var $doc ['w'] document weight */ ?>
                 <?php if (($field != 'text' && isset($doc['w']))): ?>
-                        <?php var_dump($thresholdscore); ?>
+                <?php //var_dump($thresholdscore); ?>
                 <?php if ($doc['w'] < $thresholdscore): ?>
               <span><b style="color:grey;opacity:0.2"><?= $doc['book_name']; ?></b></span></h3>
               <?php else: ?>
@@ -173,8 +177,8 @@
               <?php else: ?>
                 <span><?= $doc['book_name']; ?></span> </h3>
               <?php endif; ?>
-              <?php if (isset($doc['w'])): ?><p>Calculated weight: <?= $doc['w']; ?>  <?php endif; ?>
-              Publication: <?= $doc['text']; ?></p>
+              <?php if (isset($doc['w'])): ?><p>Расчетный вес: <?= $doc['w']; ?>  <?php endif; ?>
+              Параграф: <?= $doc['text']; ?></p>
 
             <div style="height:200px;overflow:scroll" class="doccontent">
                 <?php if (($field != 'book_name') && isset($doc['w'])): ?>
@@ -188,16 +192,15 @@
                     <?= $doc['text'] ?>
                 <?php endif; ?>
             </div>
-            <p><a href="#" class="mltbutton" data-type="content" <?php echo ($k == 0) ? 'id="first_mlt"' : ''; ?>><b>More
-                  like this</b></a></p>
+            <p><a href="#" class="mltbutton" data-type="content" <?php echo ($k == 0) ? 'id="first_mlt"' : ''; ?>><b>Найти похожий</b></a></p>
             <hr>
           </div>
         </div>
       <?php endforeach; ?>
     <div class="row">
-        <?php if (count($rows) > 0): ?>
-          <div class="col-sm-12">
-              <?php /*include 'paginator.php';*/ ?>
+        <?php if (count($rows) != 0): ?>
+          <div class="col-sm-12"><?php var_dump('there2'); ?>
+              <?php include 'paginator.php'; ?>
           </div>
 
         <?php endif; ?>

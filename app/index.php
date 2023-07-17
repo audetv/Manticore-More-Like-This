@@ -15,7 +15,7 @@ $cutoffgrey = $_POST['cutoffgrey'] ?? 0.5;
 
 $tfidf_boost = $_POST['tfidf_boost'] ?? 1;
 $index = 'common_library';
-$field = $_POST['field'] ?? 'combined';
+$field = $_POST['field'] ?? 'text';
 
 $boolean = $_POST['boolean'] ?? 0;
 if (isset($_POST['start'])) {
@@ -27,7 +27,6 @@ $ranker = $_POST['ranker'] ?? 'bm25';
 $rankerexpr = $_POST['rankerexpr'] ?? '';
 
 if (isset($_POST['send'])) {
-
     $index_status = $conn->query("SHOW INDEX $index STATUS")->fetchAll();
     foreach ($index_status as $arr) {
         if ($arr['Variable_name'] == 'indexed_documents') {
@@ -40,7 +39,6 @@ if (isset($_POST['send'])) {
         $stmt->execute();
         $callkeywords = $stmt->fetchAll();
         $keywords = [];
-
         foreach ($callkeywords as $callkey) {
             if ($stopwords_enabled == true && in_array($callkey['tokenized'], $stopwords)) {
                 continue;
