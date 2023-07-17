@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   cabinet:
-    image: ghcr.io/audetv/cabinet-frontend:main-1
+    image: ghcr.io/audetv/cabinet-frontend:main-2
     networks:
       - traefik-public
     deploy:
@@ -27,7 +27,7 @@ services:
         delay: 15s
 
   php-fpm:
-    image: ghcr.io/audetv/cabinet-php-fpm:main-1
+    image: ghcr.io/audetv/cabinet-php-fpm:main-2
     volumes:
       - ./app:/app
 
