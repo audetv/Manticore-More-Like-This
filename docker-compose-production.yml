@@ -2,9 +2,7 @@ version: "3.7"
 services:
 
   cabinet:
-    build:
-      context: app/docker
-      dockerfile: nginx/Dockerfile
+    image: ghcr.io/audetv/cabinet-frontend:main-1
     networks:
       - traefik-public
     deploy:
@@ -29,9 +27,7 @@ services:
         delay: 15s
 
   php-fpm:
-    build:
-      context: docker
-      dockerfile: php-fpm/Dockerfile
+    image: ghcr.io/audetv/cabinet-php-fpm:main-1
     volumes:
       - ./app:/app
 
