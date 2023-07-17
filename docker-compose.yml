@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+
+  cabinet:
+    build:
+      context: app/docker
+      dockerfile: nginx/Dockerfile
+    networks:
+      - traefik-public
+      - cabinet-net
+    volumes:
+      - ./app:/app
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+      - traefik.http.routers.cabinet.rule=Host(`cabinet.localhost`)
+      - traefik.http.routers.cabinet.entryPoints=http
+      - traefik.http.services.cabinet.loadBalancer.server.port=80
+      - traefik.http.middlewares.cabinet-redirect.redirectRegex.regex=^(https?://)cabinet.localhost/(.*)$$
+      - traefik.http.middlewares.cabinet-redirect.redirectRegex.replacement=$${1}cabinet.localhost/$${2}
+      - traefik.http.middlewares.cabinet-redirect.redirectRegex.permanent=true
+      - traefik.http.routers.cabinet.middlewares=cabinet-redirect
+
+
+  php-fpm:
+    build:
+      context: app/docker
+      dockerfile: php-fpm/Dockerfile
+    networks:
+      - cabinet-net
+    volumes:
+      - ./app:/app
+
+networks:
+  traefik-public:
+    external: true
+  cabinet-net:

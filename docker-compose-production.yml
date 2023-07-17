@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+
+  cabinet:
+    build:
+      context: app/docker
+      dockerfile: nginx/Dockerfile
+    networks:
+      - traefik-public
+      - cabinet-net
+    deploy:
+      placement:
+        constraints: [ node.role == manager ]
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.http.routers.cabinet.rule=Host(`cabinet.svodd.ru`)
+        - traefik.http.services.cabinet.loadBalancer.server.port=80
+        - traefik.http.middlewares.cabinet-redirect.redirectRegex.regex=^(https?://)cabinet.svodd.ru/(.*)$$
+        - traefik.http.middlewares.cabinet-redirect.redirectRegex.replacement=$${1}cabinet.svodd.ru/$${2}
+        - traefik.http.middlewares.cabinet-redirect.redirectRegex.permanent=true
+        - traefik.http.routers.cabinet.middlewares=cabinet-redirect,secure-headers
+        - traefik.http.routers.cabinet.entryPoints=https
+        - traefik.http.routers.cabinet.tls=true
+        - traefik.http.routers.cabinet.tls.certResolver=letsEncrypt
+      mode: replicated
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 15s
+
+  php-fpm:
+    build:
+      context: docker
+      dockerfile: php-fpm/Dockerfile
+    volumes:
+      - ./app:/app
+
+networks:
+  traefik-public:
+    name: traefik-public
+    external: true
