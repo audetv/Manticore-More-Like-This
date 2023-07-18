@@ -1,4 +1,3 @@
-<?php var_dump('there'); ?>
 <?php $pageCount = ceil($total_found / $offset);
 $_GET['query'] = $query;
 ?>

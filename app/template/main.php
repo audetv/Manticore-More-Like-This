@@ -2,14 +2,14 @@
   <form method="POST" action="" id="faceted" class="">
 
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12 mt-2">
+<!--        <div class="form-group">-->
+<!--          <label>Наименование для поиска </label>-->
+<!--          <textarea name="query_title" id="query_title" autocomplete="off" value="" class="form-control h-25"-->
+<!--                    rows="1">--><?php //= isset($_POST['query_title']) ? $_POST['query_title'] : '' ?><!--</textarea>-->
+<!--        </div>-->
         <div class="form-group">
-          <label>Наименование должно соответствовать </label>
-          <textarea name="query_title" id="query_title" autocomplete="off" value="" class="form-control h-25"
-                    rows="1"><?= isset($_POST['query_title']) ? $_POST['query_title'] : '' ?></textarea>
-        </div>
-        <div class="form-group">
-          <label>Текс параграфа должен соответствовать </label>
+          <label>Текс параграфа для поиска </label>
           <textarea name="query_content" id="query_content" autocomplete="off" value="" class="form-control h-50"
                     rows="5"><?= isset($_POST['query_content']) ? $_POST['query_content'] : '' ?></textarea>
         </div>
@@ -73,11 +73,11 @@
               <div class="form-group">
                 <label>Field used for matches:</label>
                 <select name="field" class="form-control">
-                  <option value="combined"<?= isset($_POST['field']) && $_POST['field'] == 'combined' ? 'selected' : '' ?>>
-                    Combined
-                  </option>
                   <option value="content"<?= isset($_POST['field']) && $_POST['field'] == 'content' ? 'selected' : '' ?>>
                     Content
+                  </option>
+                  <option value="combined"<?= isset($_POST['field']) && $_POST['field'] == 'combined' ? 'selected' : '' ?>>
+                    Combined
                   </option>
                   <option value="title" <?= isset($_POST['field']) && $_POST['field'] == 'title' ? 'selected' : '' ?>>
                     Title
@@ -144,10 +144,10 @@
 
     </div>
     <div class="row">
-        <?php if (count($rows) != 0): ?>
-          <div class="col-sm-12"><?php var_dump('there1'); ?>
+        <?php if (count($rows) > 0): ?>
+          <div class="col-sm-12">
 
-              <?php include 'paginator.php'; ?>
+              <?php //include '/app/common/template/paginator.php'; ?>
           </div>
         <?php endif; ?>
     </div>
@@ -198,9 +198,9 @@
         </div>
       <?php endforeach; ?>
     <div class="row">
-        <?php if (count($rows) != 0): ?>
-          <div class="col-sm-12"><?php var_dump('there2'); ?>
-              <?php include 'paginator.php'; ?>
+        <?php if (count($rows) > 0): ?>
+          <div class="col-sm-12">
+              <?php //include '/app/common/template/paginator.php'; ?>
           </div>
 
         <?php endif; ?>
