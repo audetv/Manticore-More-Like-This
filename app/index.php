@@ -9,11 +9,11 @@ if ($max_query_terms > 256) {
     $max_query_terms = 256;
 }
 $stopwords = file('common/ru', FILE_IGNORE_NEW_LINES);
-$stopwords_enabled = $_POST['stopwords_enabled'] ?? 1;
+$stopwords_enabled = $_POST['stopwords_enabled'] ?? 0;
 $minimum_should_match = $_POST['minimum_should_match'] ?? 0.2;
 $cutoffgrey = $_POST['cutoffgrey'] ?? 0.5;
 
-$tfidf_boost = $_POST['tfidf_boost'] ?? 1;
+$tfidf_boost = $_POST['tfidf_boost'] ?? 0;
 $index = 'common_library';
 $field = $_POST['field'] ?? 'text';
 
