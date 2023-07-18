@@ -3,7 +3,7 @@ include 'common/config.php';
 include 'common/functions.php';
 
 $start = 0;
-$offset = 20;
+$offset = 100;
 $max_query_terms = $_POST['max_query_terms'] ?? 256;
 if ($max_query_terms > 256) {
     $max_query_terms = 256;
