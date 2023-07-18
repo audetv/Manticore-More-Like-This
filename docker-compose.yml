@@ -3,11 +3,10 @@ services:
 
   cabinet:
     build:
-      context: app/docker
-      dockerfile: nginx/Dockerfile
+      context: app/docker/nginx
     networks:
       - traefik-public
-      - cabinet-net
+      - common-library-net
     volumes:
       - ./app:/app
     labels:
@@ -24,14 +23,14 @@ services:
 
   php-fpm:
     build:
-      context: app/docker
-      dockerfile: php-fpm/Dockerfile
+      context: app/docker/php-fpm
     networks:
-      - cabinet-net
+      - common-library-net
     volumes:
       - ./app:/app
 
 networks:
   traefik-public:
     external: true
-  cabinet-net:
+  common-library-net:
+    name: common-library-net

@@ -6,7 +6,7 @@ RUN addgroup -g 1000 app && adduser -u 1000 -G app -s /bin/sh -D app
 
 WORKDIR /app
 
-COPY ./ ./
+#COPY ./ ./
 
-#COPY ./docker/php-fpm/entrypoint.sh /usr/local/bin/docker-php-entrypoint
-#RUN chmod +x /usr/local/bin/docker-php-entrypoint
+COPY ./entrypoint.sh /usr/local/bin/docker-php-entrypoint
+RUN chmod +x /usr/local/bin/docker-php-entrypoint
