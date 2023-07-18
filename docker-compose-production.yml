@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   cabinet:
-    image: ghcr.io/audetv/cabinet-frontend:main-7
+    image: ghcr.io/audetv/cabinet-frontend:main-8
     networks:
       - traefik-public
       - common-library-net
@@ -23,7 +23,7 @@ services:
         - traefik.http.routers.cabinet.tls.certResolver=letsEncrypt
 
   php-fpm:
-    image: ghcr.io/audetv/cabinet-php-fpm:main-7
+    image: ghcr.io/audetv/cabinet-php-fpm:main-8
     networks:
       - traefik-public
       - common-library-net
@@ -35,3 +35,4 @@ networks:
   traefik-public:
     external: true
   common-library-net:
+    name: common-library-net
