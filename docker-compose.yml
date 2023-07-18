@@ -3,7 +3,7 @@ services:
 
   cabinet:
     build:
-      context: app/docker/nginx
+      context: app/docker/development/nginx
     networks:
       - traefik-public
       - common-library-net
@@ -23,7 +23,7 @@ services:
 
   php-fpm:
     build:
-      context: app/docker/php-fpm
+      context: app/docker/development/php-fpm
     networks:
       - common-library-net
     volumes:
@@ -34,3 +34,4 @@ networks:
     external: true
   common-library-net:
     name: common-library-net
+    external: true

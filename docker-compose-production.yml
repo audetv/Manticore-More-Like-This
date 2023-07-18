@@ -36,3 +36,4 @@ networks:
     external: true
   common-library-net:
     name: common-library-net
+    external: true
