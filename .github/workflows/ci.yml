@@ -21,6 +21,12 @@ jobs:
           username: audetv
           password: ${{ github.token }}
 
+      - name: Dev Init
+        run: make init
+
+      - name: Dev Down
+        run: make docker-down-clear
+
       - name: Inject branch slug
         uses: rlespinasse/github-slug-action@v3.x
 
