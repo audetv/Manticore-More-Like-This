@@ -3,13 +3,13 @@
 
     <div class="row">
       <div class="col-sm-12 mt-2">
-<!--        <div class="form-group">-->
-<!--          <label>Наименование для поиска </label>-->
-<!--          <textarea name="query_title" id="query_title" autocomplete="off" value="" class="form-control h-25"-->
-<!--                    rows="1">--><?php //= isset($_POST['query_title']) ? $_POST['query_title'] : '' ?><!--</textarea>-->
-<!--        </div>-->
         <div class="form-group">
-          <label>Текс параграфа для поиска </label>
+          <label>Наименование книги: </label>
+          <textarea name="query_title" id="query_title" autocomplete="off" value="" class="form-control h-25"
+                    rows="1"><?= isset($_POST['query_title']) ? $_POST['query_title'] : '' ?></textarea>
+        </div>
+        <div class="form-group">
+          <label>Текст параграфа: </label>
           <textarea name="query_content" id="query_content" autocomplete="off" value="" class="form-control h-50"
                     rows="5"><?= isset($_POST['query_content']) ? $_POST['query_content'] : '' ?></textarea>
         </div>
@@ -73,11 +73,11 @@
               <div class="form-group">
                 <label>Field used for matches:</label>
                 <select name="field" class="form-control">
-                  <option value="content"<?= isset($_POST['field']) && $_POST['field'] == 'content' ? 'selected' : '' ?>>
-                    Content
-                  </option>
                   <option value="combined"<?= isset($_POST['field']) && $_POST['field'] == 'combined' ? 'selected' : '' ?>>
                     Combined
+                  </option>
+                  <option value="content"<?= isset($_POST['field']) && $_POST['field'] == 'content' ? 'selected' : '' ?>>
+                    Content
                   </option>
                   <option value="title" <?= isset($_POST['field']) && $_POST['field'] == 'title' ? 'selected' : '' ?>>
                     Title

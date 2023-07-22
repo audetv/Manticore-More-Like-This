@@ -15,7 +15,7 @@ $cutoffgrey = $_POST['cutoffgrey'] ?? 0.5;
 
 $tfidf_boost = $_POST['tfidf_boost'] ?? 0;
 $index = 'common_library';
-$field = $_POST['field'] ?? 'text';
+$field = $_POST['field'] ?? 'combined';
 
 $boolean = $_POST['boolean'] ?? 0;
 if (isset($_POST['start'])) {
@@ -39,6 +39,7 @@ if (isset($_POST['send'])) {
         $stmt->execute();
         $callkeywords = $stmt->fetchAll();
         $keywords = [];
+
         foreach ($callkeywords as $callkey) {
             if ($stopwords_enabled == true && in_array($callkey['tokenized'], $stopwords)) {
                 continue;
@@ -91,7 +92,7 @@ if (isset($_POST['send'])) {
     }
     if ($field == 'combined') {
         $mlk_query = $title_query . ' ' . $content_query;
-    } elseif ($field == 'book_name') {
+    } elseif ($field == 'title') {
         $mlk_query = $title_query;
     } else {
         $mlk_query = $content_query;
